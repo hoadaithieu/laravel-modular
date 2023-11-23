@@ -1,0 +1,28 @@
+{
+    "name": "nwidart/media",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Media\\": ""
+        }
+    },
+    "require": {
+        "intervention/image": "^2.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.1",
+        "league/flysystem-aws-s3-v3": "~1.0"
+    }
+}
