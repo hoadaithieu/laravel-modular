@@ -49,16 +49,8 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $signal = 2;
-        if ($signal == 1) {
-            if (!$token = auth()->attempt($validator->validated())) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
-
-        } else {
-            if (!$token = auth()->attempt(User::mappingFields($validator->validated()))) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
+        if (!$token = auth()->attempt($validator->validated())) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->createNewToken($token);
@@ -72,7 +64,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            //'name' => 'required|string|between:2,100',
+            'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
@@ -81,26 +73,13 @@ class AuthController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $signal = 2;
-        if ($signal == 1) {
-            $user = User::create(array_merge(
-                $validator->validated(),
-                [
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
-                ]
-            ));
-
-        } else {
-            $user = User::create(array_merge(
-                $validator->validated(),
-                User::mappingFields(
-                    [
-                        'email' => $request->email,
-                        'password' => bcrypt($request->password),
-                    ])
-            ));
-        }
+        $user = User::create(array_merge(
+            $validator->validated(),
+            [
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]
+        ));
 
         return response()->json([
             'message' => 'User successfully registered',
