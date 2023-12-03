@@ -1,11 +1,10 @@
 {
     "Blog": true,
-    "Posts": true,
     "User": true,
     "Listing": true,
     "Page": true,
     "Core": true,
     "Media": true,
-    "Users": true,
-    "Post": true
+    "Post": true,
+    "Address": true
 }

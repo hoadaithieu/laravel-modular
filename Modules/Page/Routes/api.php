@@ -21,11 +21,16 @@ $router->bind('page', function ($id) {
     return app(\Modules\Page\Repositories\PageRepository::class)->find($id);
 });
 
-Route::middleware(['api'])->prefix('/v1/admin/page')->group(function (Router $router) {
+Route::middleware(['api'])->prefix('/v1/admin/pages')->group(function (Router $router) {
 
     $router->get('/', [
         'as' => 'api.page.page.list',
         'uses' => 'Api\V1\Admin\PageController@index',
+    ]);
+
+    $router->get('/homing-page/posts', [
+        'as' => 'api.page.post.list',
+        'uses' => 'Api\V1\Admin\PageController@postsAtHomePage',
     ]);
 
     $router->get('/{page}', [

@@ -20,15 +20,13 @@ class PageController extends Controller
     /**
      * @var PageRepository
      */
-    private $pageRepository;
     private $pageService;
 
     //public function __construct(PageRepository $page)
-    public function __construct(PageRepository $pageRepository, PageService $pageService)
+    public function __construct(PageService $pageService)
     {
         //parent::__construct();
 
-        $this->pageRepository = $pageRepository;
         $this->pageService = $pageService;
     }
 
@@ -117,14 +115,19 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         $this->pageRepository->destroy($page);
-
-        //$user = User::find($id);
-        //$user->delete();
-
-        //$post->tags()->detach();
-
-        //$this->post->destroy($post);
         return response()->json($page);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function postsAtHomePage(Request $request)
+    {
+        //$pages = $this->pageRepository->all();
+        $pages = $this->pageService->getPostsAtHomePage();
+
+        return response()->json($pages);
     }
 
 }

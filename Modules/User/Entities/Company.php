@@ -20,15 +20,15 @@ class Company extends Model
     protected $primaryKey = 'ID';
 
     protected $filterFields = [
-        'TITLE',
-        'DESCRIPTION',
-        'ADDRESS_1', // relation
+        'name',
+        'description',
+        //'ADDRESS_1', // relation
     ];
 
     protected $sortFields = [
-        'TITLE',
-        'DESCRIPTION',
-        'ADDRESS_1', // relation
+        'name',
+        'description',
+        //'ADDRESS_1', // relation
     ];
 
     /**
@@ -37,9 +37,9 @@ class Company extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'TITLE',
-        'DESCRIPTION',
-        'ADDRESS_1', // relation
+        'name',
+        'description',
+        //'ADDRESS_1', // relation
     ];
 
     /**
@@ -63,12 +63,7 @@ class Company extends Model
      */
 
     protected $attributes = [
-        'CREATED_BY' => 1,
-        'MODIFIED_BY' => 1,
     ];
-
-    const CREATED_AT = 'CREATED_DATETIME';
-    const UPDATED_AT = 'MODIFIED_DATETIME';
 
     protected $table = 'user_company';
 

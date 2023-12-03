@@ -21,6 +21,12 @@ class Post extends Model
         'id',
         'title',
         'content',
+        'user_id',
+    ];
+
+    protected $sortFields = [
+        'id',
+        'content',
     ];
 
     protected static function newFactory(): PostFactory

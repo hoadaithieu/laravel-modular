@@ -17,6 +17,8 @@ class Comment extends Model
     protected $filterFields = [
         'id',
         'content',
+        'post_id',
+        'user_id',
     ];
 
     protected $sortFields = [

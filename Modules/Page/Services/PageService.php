@@ -34,8 +34,8 @@ class PageService
         return $page;
     }
 
-    public function test()
+    public function getPostsAtHomePage(Request $request)
     {
-        return 'PageService';
+        return null;
     }
 }
