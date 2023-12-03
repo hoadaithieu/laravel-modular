@@ -44,18 +44,11 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    /*
+
     protected $attributes = [
-    'ROLE_TYPE' => 1,
-    'CREATED_BY' => 1,
-    'MODIFIED_BY' => 1,
     ];
 
-    const CREATED_AT = 'CREATED_DATETIME';
-    const UPDATED_AT = 'MODIFIED_DATETIME';
-
-    protected $table = 'user';
-     */
+    protected $table = 'users';
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

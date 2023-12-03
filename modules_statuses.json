@@ -5,5 +5,7 @@
     "Listing": true,
     "Page": true,
     "Core": true,
-    "Media": true
+    "Media": true,
+    "Users": true,
+    "Post": true
 }

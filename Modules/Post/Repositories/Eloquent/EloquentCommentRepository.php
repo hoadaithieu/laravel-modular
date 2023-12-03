@@ -1,23 +1,26 @@
-<?php namespace Modules\User\Repositories\Eloquent;
+<?php namespace Modules\Post\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
-use Modules\User\Events\CompanyWasCreated;
-use Modules\User\Events\CompanyWasDeleted;
-use Modules\User\Events\CompanyWasUpdated;
-use Modules\User\Repositories\CompanyRepository;
+use Modules\Post\Events\CommentWasCreated;
+use Modules\Post\Events\CommentWasDeleted;
+use Modules\Post\Events\CommentWasUpdated;
+use Modules\Post\Repositories\CommentRepository;
 
-class EloquentCompanyRepository extends EloquentBaseRepository implements CompanyRepository
+class EloquentCommentRepository extends EloquentBaseRepository implements CommentRepository
 {
     /**
      * Find the page set as homepage
      * @return object
      */
-    public function findCompany()
+    public function findComment(Request $request)
     {
-        //return $this->model->where('is_home', 1)->first();
+        if ($request->get('comment_id')) {
+            $this->model = $this->model->where('id', $request->get('comment_id'));
+        }
+
         return $this->model->first();
     }
 
@@ -36,11 +39,11 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
      */
     public function create($data)
     {
-        $company = $this->model->create($data);
+        $comment = $this->model->create($data);
 
-        event(new CompanyWasCreated($company->id, $data));
+        event(new CommentWasCreated($comment->id, $data));
 
-        return $user;
+        return $comment;
     }
 
     /**
@@ -53,14 +56,14 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
 
         $model->update($data);
 
-        event(new CompanyWasUpdated($model->id, $data));
+        event(new CommentWasUpdated($model->id, $data));
 
         return $model;
     }
 
     public function destroy($model)
     {
-        event(new CompanyWasDeleted($model));
+        event(new CommentWasDeleted($model));
 
         return $model->delete();
     }
@@ -85,6 +88,10 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
     public function getList(Request $request)
     {
 
+        if ($request->get('post_id') > 0) {
+            $this->model = $this->model->where('post_id', $request->get('post_id'));
+        }
+
         if (method_exists($this->model, 'translations')) {
             //return $this->model->with('translations')->orderBy('CREATED_DATETIME', 'DESC')->paginate($request->get('limit') ?? 10, ['*'], 'page');
             return $this->model->with('translations')->filter()->sort()->paginate($request->get('limit') ?? 10, ['*'], 'page');
@@ -92,7 +99,5 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
 
         //return $this->model->orderBy('CREATED_DATETIME', 'DESC')->filter()->sort()->paginate($request->get('limit') ?? 10, ['*'], 'page');
         return $this->model->filter()->sort()->paginate($request->get('limit') ?? 10, ['*'], 'page');
-
     }
-
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\User\Transformers;
+namespace Modules\Post\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'content' => $this->content,
             //'companies' => CompanyResource::collection($this->whenLoaded('companies')),
         ];
 

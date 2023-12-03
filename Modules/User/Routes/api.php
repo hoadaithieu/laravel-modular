@@ -58,7 +58,7 @@ Route::middleware(['api'])->prefix('/v1/admin/company')->group(function (Router 
 });
 
 //Route::middleware(['auth:api'])->prefix('/v1/admin/user')->group(function (Router $router) {
-Route::middleware(['api'])->prefix('/v1/admin/user')->group(function (Router $router) {
+Route::middleware(['api'])->prefix('/v1/admin/users')->group(function (Router $router) {
 
     $router->get('/', [
         'as' => 'api.user.user.list',

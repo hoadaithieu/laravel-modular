@@ -1,21 +1,21 @@
-<?php namespace Modules\User\Repositories\Eloquent;
+<?php namespace Modules\Post\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
-use Modules\User\Events\CompanyWasCreated;
-use Modules\User\Events\CompanyWasDeleted;
-use Modules\User\Events\CompanyWasUpdated;
-use Modules\User\Repositories\CompanyRepository;
+use Modules\Post\Events\PostWasCreated;
+use Modules\Post\Events\PostWasDeleted;
+use Modules\Post\Events\PostWasUpdated;
+use Modules\Post\Repositories\PostRepository;
 
-class EloquentCompanyRepository extends EloquentBaseRepository implements CompanyRepository
+class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
 {
     /**
      * Find the page set as homepage
      * @return object
      */
-    public function findCompany()
+    public function findPost()
     {
         //return $this->model->where('is_home', 1)->first();
         return $this->model->first();
@@ -36,11 +36,11 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
      */
     public function create($data)
     {
-        $company = $this->model->create($data);
+        $post = $this->model->create($data);
 
-        event(new CompanyWasCreated($company->id, $data));
+        event(new PostWasCreated($post->id, $data));
 
-        return $user;
+        return $post;
     }
 
     /**
@@ -53,14 +53,14 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
 
         $model->update($data);
 
-        event(new CompanyWasUpdated($model->id, $data));
+        event(new PostWasUpdated($model->id, $data));
 
         return $model;
     }
 
     public function destroy($model)
     {
-        event(new CompanyWasDeleted($model));
+        event(new PostWasDeleted($model));
 
         return $model->delete();
     }
@@ -92,7 +92,6 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
 
         //return $this->model->orderBy('CREATED_DATETIME', 'DESC')->filter()->sort()->paginate($request->get('limit') ?? 10, ['*'], 'page');
         return $this->model->filter()->sort()->paginate($request->get('limit') ?? 10, ['*'], 'page');
-
     }
 
 }

@@ -74,10 +74,10 @@ class User extends Authenticatable implements JWTSubject
 
     protected $table = 'users';
 
-    //protected static function newFactory()
-    //{
-    //    return \Modules\User\Database\factories\UserFactory::new ();
-    //}
+    protected static function newFactory()
+    {
+        return \Modules\User\Database\factories\UserFactory::new ();
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

@@ -17,9 +17,9 @@ class UserService
 
     public function getUser(User $user)
     {
-        //return $user;
+        return $user;
         //return $this->userRepository->getItem($user);
-        return $user->load('companies');
+        //return $user->load('companies');
     }
 
     public function getUsers(Request $request)
@@ -44,6 +44,7 @@ class UserService
     public function destroyUser(User $user)
     {
         $this->userRepository->destroy($user);
+
         return $this;
     }
 }

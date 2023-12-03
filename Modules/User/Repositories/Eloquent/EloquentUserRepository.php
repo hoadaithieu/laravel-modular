@@ -17,7 +17,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
      */
     public function findUser()
     {
-        return $this->model->where('is_home', 1)->first();
+        //return $this->model->where('is_home', 1)->first();
+        return $this->model->first();
     }
 
     /**
@@ -37,7 +38,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         $user = $this->model->create($data);
 
-        event(new UserWasCreated($user->ID, $data));
+        event(new UserWasCreated($user->id, $data));
 
         return $user;
     }
@@ -58,7 +59,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $model->update($data);
 
-        event(new UserWasUpdated($model->ID, $data));
+        event(new UserWasUpdated($model->id, $data));
 
         return $model;
     }
