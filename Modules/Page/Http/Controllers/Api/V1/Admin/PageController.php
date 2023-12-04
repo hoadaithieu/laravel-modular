@@ -139,6 +139,7 @@ class PageController extends Controller
 
         $posts = $this->postService->findMany($request);
         $users = $this->userService->findMany($request);
+
         return response()->json($pages);
     }
 
