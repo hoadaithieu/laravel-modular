@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\User\Entities\User;
+use Modules\User\Http\Requests\LoginRequest;
 use Validator;
 
 class AuthController extends Controller
@@ -38,8 +39,22 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
+        /*
+        $credentials = $request->getCredentials();
+
+        if(!Auth::validate($credentials)):
+        return redirect()->to('login')
+        ->withErrors(trans('auth.failed'));
+        endif;
+
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        Auth::login($user);
+         */
+        //
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',

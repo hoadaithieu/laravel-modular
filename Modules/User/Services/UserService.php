@@ -15,14 +15,21 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function getUser(User $user)
+    public function findOne(Request $request)
     {
+
+        $userId = $request->get('user_id');
+
+        $user = $this->userRepository->find($userId);
+
+        if ($user) {
+            //$post->load('comments');
+        }
+
         return $user;
-        //return $this->userRepository->getItem($user);
-        //return $user->load('companies');
     }
 
-    public function getUsers(Request $request)
+    public function findMany(Request $request)
     {
         return $this->userRepository->getList($request);
     }

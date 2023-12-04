@@ -14,12 +14,12 @@ class CommentService
         $this->commentRepository = $commentRepository;
     }
 
-    public function getComment(Request $request)
+    public function findOne(Request $request)
     {
         return $this->commentRepository->findComment($request);
     }
 
-    public function getComments(Request $request)
+    public function findMany(Request $request)
     {
         return $this->commentRepository->getList($request);
     }

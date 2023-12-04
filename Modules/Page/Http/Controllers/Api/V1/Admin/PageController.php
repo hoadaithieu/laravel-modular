@@ -10,6 +10,10 @@ use Modules\Page\Http\Requests\CreatePageRequest;
 use Modules\Page\Http\Requests\UpdatePageRequest;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Page\Services\PageService;
+use Modules\Post\Services\PostService;
+use Modules\Post\Transformers\PostResource;
+use Modules\User\Services\UserService;
+use Modules\User\Transformers\UserResource;
 
 //use Modules\Page\Transformers\UserCollection;
 //use Modules\Page\Transformers\UserResource;
@@ -21,13 +25,19 @@ class PageController extends Controller
      * @var PageRepository
      */
     private $pageService;
+    private $postService;
+    private $userService;
 
     //public function __construct(PageRepository $page)
-    public function __construct(PageService $pageService)
+    public function __construct(PageService $pageService, PostService $postService, UserService $userService)
     {
         //parent::__construct();
 
         $this->pageService = $pageService;
+        $this->postService = $postService;
+        $this->userService = $userService;
+
+        return $this;
     }
 
     /**
@@ -125,9 +135,37 @@ class PageController extends Controller
     public function postsAtHomePage(Request $request)
     {
         //$pages = $this->pageRepository->all();
-        $pages = $this->pageService->getPostsAtHomePage();
+        $pages = $this->pageService->getPostsAtHomePage($request);
 
+        $posts = $this->postService->findMany($request);
+        $users = $this->userService->findMany($request);
         return response()->json($pages);
     }
 
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function postAtHomePage(Request $request)
+    {
+        //$pages = $this->pageRepository->all();
+        //$pages = $this->pageService->getPostsAtHomePage($request);
+
+        $post = $this->postService->findOne($request);
+
+        $userRequest = clone $request;
+        $userRequest->merge(['user_id' => $post->user_id]);
+
+        $user = $this->userService->findOne($userRequest);
+
+        $postData = new PostResource($post);
+        $userData = new UserResource($user);
+
+        $data = [
+            'post' => $postData,
+            'user' => $userData,
+        ];
+
+        return response()->json($data);
+    }
 }

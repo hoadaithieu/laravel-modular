@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userService->getUsers($request);
+        $users = $this->userService->findMany($request);
 
         //return response()->json($users);
         return new UserCollection($users);
@@ -66,9 +66,10 @@ class UserController extends Controller
      * @return Renderable
      */
 
-    public function show(User $user)
+    //public function show(User $user)
+    public function show(Request $request)
     {
-        $user = $this->userService->getUser($user);
+        $user = $this->userService->findOne($request);
 
         //return response()->json($user);
         return new UserResource($user);

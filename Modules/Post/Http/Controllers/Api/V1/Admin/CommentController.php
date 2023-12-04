@@ -33,7 +33,7 @@ class CommentController extends Controller
     public function index(Request $request)
     {
 
-        $comments = $this->commentService->getComments($request);
+        $comments = $this->commentService->findMany($request);
 
         return new CommentCollection($comments);
     }
@@ -68,7 +68,7 @@ class CommentController extends Controller
 
     public function show(Request $request)
     {
-        $comment = $this->commentService->getComment($request);
+        $comment = $this->commentService->findOne($request);
 
         //return response()->json($comment);
         return new CommentResource($comment);

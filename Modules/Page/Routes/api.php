@@ -33,6 +33,11 @@ Route::middleware(['api'])->prefix('/v1/admin/pages')->group(function (Router $r
         'uses' => 'Api\V1\Admin\PageController@postsAtHomePage',
     ]);
 
+    $router->get('/homing-page/posts/{post}', [
+        'as' => 'api.page.post.show',
+        'uses' => 'Api\V1\Admin\PageController@postAtHomePage',
+    ]);
+
     $router->get('/{page}', [
         'as' => 'api.page.page.show',
         'uses' => 'Api\V1\Admin\PageController@show',

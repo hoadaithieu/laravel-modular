@@ -31,7 +31,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
 
-        $posts = $this->postService->getPosts($request);
+        $posts = $this->postService->findMany($request);
 
         return new PostCollection($posts);
     }
@@ -68,7 +68,7 @@ class PostController extends Controller
     public function show(Request $request)
     {
 
-        $post = $this->postService->getPost($request);
+        $post = $this->postService->findOne($request);
 
         //return response()->json($post);
         return new PostResource($post);

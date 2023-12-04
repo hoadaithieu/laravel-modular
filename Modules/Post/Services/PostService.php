@@ -15,7 +15,7 @@ class PostService
         $this->postRepository = $postRepository;
     }
 
-    public function getPost(Request $request)
+    public function findOne(Request $request)
     {
         $postId = $request->get('post_id');
 
@@ -28,7 +28,7 @@ class PostService
         return $post;
     }
 
-    public function getPosts(Request $request)
+    public function findMany(Request $request)
     {
         return $this->postRepository->getList($request);
     }
